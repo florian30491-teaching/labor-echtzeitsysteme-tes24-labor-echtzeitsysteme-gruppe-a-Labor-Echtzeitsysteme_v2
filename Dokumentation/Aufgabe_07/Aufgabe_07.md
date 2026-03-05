@@ -8,9 +8,7 @@
 
 ---
 
-## Aufgabenbeschreibung
-
-<!-- Was ist die Aufgabenstellung? Was soll am Ende erreicht werden? -->
+> 🚧 **Aufgabenstellung folgt zu einem späteren Zeitpunkt.**
 
 ---
 
@@ -18,13 +16,12 @@
 
 ### Theoretisch
 
-<!-- Vorüberlegungen, Konzepte, Berechnungen, Schaltpläne -->
-<!-- Bilder direkt in diesem Ordner ablegen und wie folgt einbinden: -->
-<!-- ![Beschreibung](dateiname.png) -->
+<!-- Vorüberlegungen, Konzepte -->
+<!-- Bilder direkt in diesem Ordner ablegen: ![Beschreibung](dateiname.png) -->
 
 ### Praktisch
 
-<!-- Umsetzung am Board/Gerät, Messergebnisse, Code-Snippets, Screenshots -->
+<!-- Umsetzung, Messergebnisse, Code-Snippets -->
 
 ```c
 // Code-Snippet hier einfügen

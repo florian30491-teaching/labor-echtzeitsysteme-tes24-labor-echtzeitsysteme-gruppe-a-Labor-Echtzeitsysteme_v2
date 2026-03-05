@@ -1,4 +1,4 @@
-﻿# Aufgabe 02
+﻿# Aufgabe 02 – Lauflicht mit periodischem Task
 
 | | |
 |---|---|
@@ -17,15 +17,10 @@ Legen Sie einen Task an, welcher ein **Lauflicht** von n ≥ 3 Pins (z. B. DBG1,
 - Bei jedem Aufruf des Tasks soll das Lauflicht **um eine weitere Stelle verschoben** werden.
 - Wenn das Ende der Kette erreicht ist, soll das Lauflicht **wieder von vorne beginnen**.
 
-Betrachten Sie die Aufgabenstellung zunächst **theoretisch** und anschließend **praktisch**, indem Sie ein Beispiel programmieren und dieses messtechnisch geeignet untersuchen.
+Betrachten Sie die Aufgabenstellung zunächst **theoretisch** und anschließend **praktisch**, indem Sie ein Beispiel programmieren und dieses messtechnisch untersuchen.
 
-**Hinweise zur messtechnischen Untersuchung:**
-
-Für die Messung stehen im Labor mehrere Methoden zur Verfügung – wählen Sie mindestens eine davon und begründen Sie Ihre Wahl:
-
-- **Trace-Debugger (iC5700 BlueBox + WinIDEA):** Der im Labor verfügbare Trace-Debugger kann Task-Ausführungszeiten und -perioden aufzeichnen. In WinIDEA lässt sich über die Trace-Analyse (z. B. *Task Execution Chart*) die Taskperiode direkt ablesen.
-- **GPIO-Toggle + Oszilloskop:** Der Task setzt beim Eintritt einen dedizierten GPIO-Ausgangspin. Am Oszilloskop ist die Periode der Flanken direkt als Taskperiode messbar.
-- **GPIO-Toggle + Logikanalysator:** Wie oben, jedoch mit einem Logikanalysator zur digitalen Aufzeichnung und Zeitauswertung.
+> Für die messtechnische Untersuchung steht der **Trace-Debugger (iC5700 BlueBox + WinIDEA)** zur Verfügung.  
+> Alternativ können GPIO-Toggle-Pins am Oszilloskop oder Logikanalysator ausgewertet werden.
 
 ---
 
@@ -33,13 +28,12 @@ Für die Messung stehen im Labor mehrere Methoden zur Verfügung – wählen Sie
 
 ### Theoretisch
 
-<!-- Vorüberlegungen, Konzepte, Berechnungen, Schaltpläne -->
-<!-- Bilder direkt in diesem Ordner ablegen und wie folgt einbinden: -->
-<!-- ![Beschreibung](dateiname.png) -->
+<!-- Vorüberlegungen, Konzepte -->
+<!-- Bilder direkt in diesem Ordner ablegen: ![Beschreibung](dateiname.png) -->
 
 ### Praktisch
 
-<!-- Umsetzung am Board/Gerät, Messergebnisse, Code-Snippets, Screenshots -->
+<!-- Umsetzung, Messergebnisse, Code-Snippets -->
 
 ```c
 // Code-Snippet hier einfügen

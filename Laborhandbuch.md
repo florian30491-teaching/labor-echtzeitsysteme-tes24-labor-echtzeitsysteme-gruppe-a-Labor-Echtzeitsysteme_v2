@@ -67,9 +67,9 @@ Das Labor verwendet das **STM32 Nucleo-H563ZI** Entwicklungsboard von STMicroele
 
 | Peripherie | Beschreibung |
 |---|---|
-| **LD1 (grün)** | User-LED, steuerbar via `BSP_LED_Toggle(LED_GREEN)` |
-| **LD2 (gelb)** | User-LED, steuerbar via `BSP_LED_Toggle(LED_YELLOW)` |
-| **LD3 (rot)** | User-LED / Error-Indikator |
+| **LD1 (grün)** | User-LED, steuerbar via `HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin)` |
+| **LD2 (gelb)** | User-LED, steuerbar via `HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin)` |
+| **LD3 (rot)** | User-LED / Error-Indikator, steuerbar via `HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin)` |
 | **B1 (blau)** | User-Taster, konfiguriert als EXTI-Interrupt |
 | **UART (Virtual COM)** | Über ST-LINK als serieller Port am PC sichtbar (115200 Baud) |
 
@@ -242,7 +242,7 @@ Labor-Echtzeitsysteme/
 │   │
 │   ├── Drivers/
 │   │   ├── STM32H5xx_HAL_Driver/      # ST HAL (Hardware Abstraction Layer)
-│   │   ├── BSP/STM32H5xx_Nucleo/      # Board Support Package (LEDs, Taster, COM)
+│   │   ├── BSP/STM32H5xx_Nucleo/      # Board Support Package (Pin-Definitionen, nicht direkt verwendet)
 │   │   └── CMSIS/                     # ARM CMSIS-Core Header
 │   │
 │   ├── Middlewares/
