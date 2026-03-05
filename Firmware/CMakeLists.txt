@@ -62,6 +62,39 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 # Enable CMake support for ASM and C languages
 enable_language(C ASM)
 
+# Debug-spezifische Optimierungen
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+    message(STATUS "=== Debug Build aktiviert - Optimierungen werden angewendet ===")
+
+    # Keine Optimierung + maximale Debug-Symbole
+    # FORCE überschreibt den Wert aus starm-clang.cmake
+    set(CMAKE_C_FLAGS_DEBUG   "-O0 -g3 -gdwarf-4" CACHE STRING "" FORCE)
+    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -gdwarf-4" CACHE STRING "" FORCE)
+    set(CMAKE_ASM_FLAGS_DEBUG "-g3 -gdwarf-4"      CACHE STRING "" FORCE)
+
+    # Debug-spezifische Compiler-Flags
+    add_compile_options(
+            $<$<CONFIG:Debug>:-fno-omit-frame-pointer>   # Frame-Pointer beibehalten
+            $<$<CONFIG:Debug>:-fno-inline-functions>     # Kein Inlining -> Call-Stack vollständig
+            $<$<CONFIG:Debug>:-fno-optimize-sibling-calls> # Tail-Call-Optimierung aus
+            $<$<CONFIG:Debug>:-fstack-usage>             # Stack-Nutzung pro Funktion
+            $<$<CONFIG:Debug>:-fdiagnostics-color=always>
+    )
+
+    # Debug-Makros
+    add_compile_definitions(
+            $<$<CONFIG:Debug>:DEBUG=1>
+            $<$<CONFIG:Debug>:USE_FULL_ASSERT=1>
+    )
+
+    # Linker: nicht strippen, Map-Datei ausgeben
+    add_link_options(
+            $<$<CONFIG:Debug>:-Wl,--cref>
+            $<$<CONFIG:Debug>:-Wl,--print-memory-usage>
+            $<$<CONFIG:Debug>:-Wl,-Map=${CMAKE_PROJECT_NAME}_debug.map>
+    )
+endif()
+
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 

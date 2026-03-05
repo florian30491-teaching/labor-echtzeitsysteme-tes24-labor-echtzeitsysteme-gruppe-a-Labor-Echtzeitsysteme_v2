@@ -410,7 +410,7 @@ das **Flashen, Debuggen und die Trace-Analyse**.
    Firmware/cmake-build-debug/Labor-Echtzeitsyteme.elf
    ```
 4. **Debug → Connect** → Verbindung zur BlueBox herstellen
-5. Die ELF-Datei enthält vollständige Debug-Symbole (durch `-g` im CMake-Debug-Build) –  
+5. Die ELF-Datei enthält vollständige Debug-Symbole (`-O0 -g3`, kein Inlining) –  
    WinIDEA zeigt C-Quellcode, Variablen und Call-Stack direkt an.
 
 ---

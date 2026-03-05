@@ -74,6 +74,8 @@ extern uint32_t SystemCoreClock;
 #define configSTACK_ALLOCATION_FROM_SEPARATE_HEAP 0
 #define configMAX_TASK_NAME_LEN                  ( 16 )
 #define configUSE_TRACE_FACILITY                 1
+#define configUSE_STATS_FORMATTING_FUNCTIONS     1
+#define configGENERATE_RUN_TIME_STATS            0
 #define configUSE_16_BIT_TICKS                   0
 #define configUSE_MUTEXES                        1
 #define configQUEUE_REGISTRY_SIZE                8
@@ -136,6 +138,11 @@ to exclude the API function. */
 #define INCLUDE_xTaskGetCurrentTaskHandle    1
 #define INCLUDE_eTaskGetState                1
 #define INCLUDE_xTaskAbortDelay              1
+#define INCLUDE_pcTaskGetName                1  /* Task-Namen im Debugger sichtbar   */
+#define INCLUDE_uxTaskGetStackHighWaterMark2 1  /* Erweiterte Stack-Analyse          */
+#define INCLUDE_xTaskGetHandle               1  /* Task-Handle per Name abrufen      */
+#define INCLUDE_xTaskGetIdleTaskHandle       1
+#define INCLUDE_pxTaskGetStackStart          1  /* Stack-Start-Adresse (Debugger)    */
 
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS

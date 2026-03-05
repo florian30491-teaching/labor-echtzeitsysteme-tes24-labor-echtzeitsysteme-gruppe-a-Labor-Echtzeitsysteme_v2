@@ -44,7 +44,7 @@ void aufgabe_01_init(void)
      *   xTimerCreate(...)
      */
 }
-
+extern uint32_t counter = 0;
 /**
  * @brief  Haupt-Task der Aufgabe 01.
  * @param  argument  Nicht verwendet.
@@ -54,6 +54,8 @@ static void aufgabe01Task(void *argument)
     /* TODO: Aufgabe 01 hier implementieren */
     for (;;)
     {
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        counter++;
+        BSP_LED_Toggle(LED_GREEN);
+        vTaskDelay(pdMS_TO_TICKS(250));
     }
 }
