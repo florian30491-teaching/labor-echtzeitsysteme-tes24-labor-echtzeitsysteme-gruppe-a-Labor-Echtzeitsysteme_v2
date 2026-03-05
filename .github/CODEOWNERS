@@ -1,0 +1,15 @@
+# CODEOWNERS
+# Diese Datei schützt bestimmte Verzeichnisse vor ungewollten Änderungen.
+# Der Dozent muss alle PRs reviewen, die diese Pfade berühren.
+
+# Bewertungsdatei – nur Dozent darf ändern
+/Bewertung/ @dozent
+
+# Firmware – nur Dozent darf ändern
+/Firmware/ @dozent
+
+# Basis-Konfigurationsdateien
+/README.md @dozent
+/Laborhandbuch.md @dozent
+/.github/ @dozent
+
