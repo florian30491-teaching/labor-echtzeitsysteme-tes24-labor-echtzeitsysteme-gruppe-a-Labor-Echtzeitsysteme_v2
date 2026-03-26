@@ -30,13 +30,13 @@ set(CMAKE_PROJECT_NAME Labor-Echtzeitsyteme)
 #   Settings -> Build, Execution, Deployment -> CMake -> CMake options
 #   Eintrag: -DAUFGABE=3
 #
-# Gueltige Werte: 1 – 8  (Standard: 1)
+# Gueltige Werte: 0 – 8  (Standard: 0)
 # ---------------------------------------------------------------------------
-set(AUFGABE "1" CACHE STRING "Aktive Aufgabe (1-8)")
-set_property(CACHE AUFGABE PROPERTY STRINGS 1 2 3 4 5 6 7 8)
+set(AUFGABE "0" CACHE STRING "Aktive Aufgabe (0-8)")
+set_property(CACHE AUFGABE PROPERTY STRINGS 0 1 2 3 4 5 6 7 8)
 
-if(AUFGABE LESS 1 OR AUFGABE GREATER 8)
-    message(FATAL_ERROR "Ungueltige Aufgabe '${AUFGABE}'. Erlaubte Werte: 1-8.")
+if(AUFGABE LESS 0 OR AUFGABE GREATER 8)
+    message(FATAL_ERROR "Ungueltige Aufgabe '${AUFGABE}'. Erlaubte Werte: 0-8.")
 endif()
 
 message(STATUS "")

@@ -27,6 +27,12 @@
             }
         },
         {
+            "name": "Aufgabe-0-Debug",
+            "displayName": "Aufgabe 0 (Debug)",
+            "inherits": "Debug-base",
+            "cacheVariables": { "AUFGABE": "0" }
+        },
+        {
             "name": "Aufgabe-1-Debug",
             "displayName": "Aufgabe 1 (Debug)",
             "inherits": "Debug-base",
@@ -73,6 +79,12 @@
             "displayName": "Aufgabe 8 (Debug)",
             "inherits": "Debug-base",
             "cacheVariables": { "AUFGABE": "8" }
+        },
+        {
+            "name": "Aufgabe-0-Release",
+            "displayName": "Aufgabe 0 (Release)",
+            "inherits": "Release-base",
+            "cacheVariables": { "AUFGABE": "0" }
         },
         {
             "name": "Aufgabe-1-Release",
@@ -125,6 +137,10 @@
     ],
     "buildPresets": [
         {
+            "name": "Aufgabe-0-Debug",
+            "configurePreset": "Aufgabe-0-Debug"
+        },
+        {
             "name": "Aufgabe-1-Debug",
             "configurePreset": "Aufgabe-1-Debug"
         },
@@ -155,6 +171,10 @@
         {
             "name": "Aufgabe-8-Debug",
             "configurePreset": "Aufgabe-8-Debug"
+        },
+        {
+            "name": "Aufgabe-0-Release",
+            "configurePreset": "Aufgabe-0-Release"
         },
         {
             "name": "Aufgabe-1-Release",
