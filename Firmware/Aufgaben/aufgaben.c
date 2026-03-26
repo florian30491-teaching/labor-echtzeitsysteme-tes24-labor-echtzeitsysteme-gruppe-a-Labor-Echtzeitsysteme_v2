@@ -24,7 +24,9 @@
  */
 void aufgabe_freertos_init(void)
 {
-#if   AUFGABE_NR == 1
+#if   AUFGABE_NR == 0
+    aufgabe_00_init();
+#elif AUFGABE_NR == 1
     aufgabe_01_init();
 #elif AUFGABE_NR == 2
     aufgabe_02_init();
@@ -41,7 +43,7 @@ void aufgabe_freertos_init(void)
 #elif AUFGABE_NR == 8
     aufgabe_08_init();
 #else
-#error "Ungueltige Aufgabe: AUFGABE_NR muss zwischen 1 und 8 liegen."
+#error "Ungueltige Aufgabe: AUFGABE_NR muss zwischen 0 und 8 liegen."
 #endif
 }
 

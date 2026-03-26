@@ -111,6 +111,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Zentraler Aufgaben-Dispatcher (wertet AUFGABE_NR zur Compile-Zeit aus)
     ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgaben.c
     # Alle Aufgaben-Implementierungen (welche aktiv ist steuert #if AUFGABE_NR)
+    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_00.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_01.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_02.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_03.c

@@ -4,6 +4,7 @@ Inhaltsverzeichnis aller Aufgaben. Jede Aufgabe wird über einen eigenen Pull Re
 
 | Nr. | Aufgabe | Branch |
 |-----|---------|--------|
+| 00 | [Aufgabe 00](./Aufgabe_00/Aufgabe_00.md) | `feature/aufgabe00` |
 | 01 | [Aufgabe 01](./Aufgabe_01/Aufgabe_01.md) | `feature/aufgabe01` |
 | 02 | [Aufgabe 02](./Aufgabe_02/Aufgabe_02.md) | `feature/aufgabe02` |
 | 03 | [Aufgabe 03](./Aufgabe_03/Aufgabe_03.md) | `feature/aufgabe03` |

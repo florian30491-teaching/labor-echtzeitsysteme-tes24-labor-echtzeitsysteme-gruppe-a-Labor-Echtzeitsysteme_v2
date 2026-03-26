@@ -14,6 +14,7 @@
 
 | Aufgabe    | PR | Status |
 |------------|----|--------|
+| Aufgabe 00 |    | ⬜     |
 | Aufgabe 01 |    | ⬜     |
 | Aufgabe 02 |    | ⬜     |
 | Aufgabe 03 |    | ⬜     |

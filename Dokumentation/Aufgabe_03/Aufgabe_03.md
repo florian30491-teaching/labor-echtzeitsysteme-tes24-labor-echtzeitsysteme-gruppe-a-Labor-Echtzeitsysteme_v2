@@ -1,4 +1,4 @@
-﻿# Aufgabe 03 – Rate Monotonic Scheduling mit drei Tasks
+﻿﻿# Aufgabe 03 – Rate Monotonic Scheduling mit drei Tasks
 
 | | |
 |---|---|
@@ -18,9 +18,23 @@ Legen Sie drei Tasks an, jeder Task steuert einen Pin mit unterschiedlicher Task
 | Task 2   | 27 ms     | 40 ms       |
 | Task 3   | 67 ms     | 100 ms      |
 
-- Beim **Eintritt** in den Task wird der zugehörige Pin **gesetzt**.
-- Beim **Verlassen** des Tasks wird der Pin **zurückgesetzt**.
+- Beim **Eintritt** in den Task wird der zugehörige Pin **gesetzt (High)**.
+- Beim **Verlassen** des Tasks wird der Pin **zurückgesetzt (Low)**.
 - Die Tasklänge wird durch eine **Warteschleife** simuliert – die Anzahl der Schleifendurchläufe ist experimentell zu ermitteln.
+
+> 📌 **GPIO-Pins für die Tasks:** Verwenden Sie die dedizierten Debug-Pins des Boards (Connector **CN10**, rechts unten).  
+> Jedem Task wird ein eigener Pin zugeordnet, sodass im Trace-Debugger die vollständige Abarbeitungsdauer jedes Tasks direkt als High-Pegel sichtbar ist:
+>
+> | Task | empfohlener Pin | MCU-Pin | CN10-Pin |
+> |------|-----------------|---------|----------|
+> | Task 1 | DBG1 | PA3 | Pin 34 (D35) |
+> | Task 2 | DBG2 | PE15 | Pin 30 (D37) |
+> | Task 3 | DBG3 | PE12 | Pin 26 (D39) |
+>
+>
+> ![Nucleo Board Pinout – CN10 Connector](../Stm32/pinout_nucleo_board.png)
+>
+> Genaue Pin-Belegung: Board User Manual [**UM3115**](../Stm32/um3115-stm32h5-nucleo144-board-mb1404-stmicroelectronics.pdf), Seite 32.
 
 ### Prioritätsvergabe
 

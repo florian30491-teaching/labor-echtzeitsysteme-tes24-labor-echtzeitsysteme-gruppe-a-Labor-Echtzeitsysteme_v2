@@ -372,7 +372,13 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DBG1_GPIO_Port, DBG1_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOE, DBG4_Pin|DBG3_Pin|DBG2_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
@@ -406,6 +412,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF11_ETH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : DBG1_Pin */
+  GPIO_InitStruct.Pin = DBG1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(DBG1_GPIO_Port, &GPIO_InitStruct);
+
   /*Configure GPIO pin : VBUS_SENSE_Pin */
   GPIO_InitStruct.Pin = VBUS_SENSE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
@@ -418,6 +431,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LED_GREEN_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : DBG4_Pin DBG3_Pin DBG2_Pin */
+  GPIO_InitStruct.Pin = DBG4_Pin|DBG3_Pin|DBG2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /*Configure GPIO pins : UCPD_CC1_Pin UCPD_CC2_Pin */
   GPIO_InitStruct.Pin = UCPD_CC1_Pin|UCPD_CC2_Pin;

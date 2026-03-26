@@ -77,6 +77,28 @@ Das Labor verwendet das **STM32 Nucleo-H563ZI** Entwicklungsboard von STMicroele
 
 Das vollständige Pinout ist in der Datei [`Labor-Echtzeitsyteme.ioc`](./Firmware/Labor-Echtzeitsyteme.ioc) hinterlegt und kann mit **STM32CubeMX** geöffnet werden.
 
+### Debug-Pins (DBG)
+
+Das Nucleo-H563ZI Board stellt dedizierte GPIO-Pins zur Verfügung, die für die messtechnische Untersuchung im Labor verwendet werden.  
+Diese Pins sind auf dem Board über den **Connector CN10 (rechts unten)** zugänglich und können direkt mit dem Trace-Debugger (iC5700 BlueBox) oder einem Logikanalysator verbunden werden.
+
+| Pin-Name | MCU-Pin | `GPIO_Port` | `GPIO_Pin` | CN10-Pin | CN10-Bezeichnung |
+|----------|---------|-------------|------------|----------|------------------|
+| **DBG1** | PA3 | `GPIOA` | `GPIO_PIN_3` | Pin 34 | D35 |
+| **DBG2** | PE15 | `GPIOE` | `GPIO_PIN_15` | Pin 30 | D37 |
+| **DBG3** | PE12 | `GPIOE` | `GPIO_PIN_12` | Pin 26 | D39 |
+| **DBG4** | PE10 | `GPIOE` | `GPIO_PIN_10` | Pin 24 | D40 |
+
+**Beispiel – Pin setzen / zurücksetzen:**
+```c
+HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);    /* DBG1 High */
+HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);  /* DBG1 Low  */
+HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_3);                 /* DBG1 Toggle */
+```
+
+> 📖 Die genaue Pin-Belegung des Connectors CN10 ist im Board User Manual **UM3115** auf **Seite 32** zu finden:  
+> [UM3115 – STM32H5 Nucleo-144 Board User Manual](Dokumentation/Stm32/um3115-stm32h5-nucleo144-board-mb1404-stmicroelectronics.pdf)
+
 ---
 
 ## 2. Toolchain & Software-Übersicht
@@ -252,6 +274,9 @@ Labor-Echtzeitsysteme/
 │
 ├── Dokumentation/                     # Aufgabendokumentation der Studierenden
 │   ├── README.md                      # Inhaltsverzeichnis
+│   ├── Aufgabe_00/
+│   │   ├── Aufgabe_00.md              # Dokumentations-Template
+│   │   └── (Bilder direkt hier)
 │   ├── Aufgabe_01/
 │   │   ├── Aufgabe_01.md              # Dokumentations-Template
 │   │   └── (Bilder direkt hier)
@@ -299,7 +324,7 @@ git config --global user.email "deine@email.de"
 3. **Settings → Build, Execution, Deployment → CMake**  
    Im aktiven Profil unter **„CMake options"** eintragen:
    ```
-   -DCMAKE_TOOLCHAIN_FILE=cmake/starm-clang.cmake -DAUFGABE=1
+   -DCMAKE_TOOLCHAIN_FILE=cmake/starm-clang.cmake -DAUFGABE=0
    ```
 4. **Build directory** auf `cmake-build-debug` setzen
 5. Rechtsklick auf `Firmware/CMakeLists.txt` → **„Reload CMake Project"**
@@ -524,7 +549,7 @@ main()
 
 **In CLion:**
 1. Settings → Build, Execution, Deployment → CMake → CMake options
-2. `-DAUFGABE=X` anpassen (X = 1 … 8)
+2. `-DAUFGABE=X` anpassen (X = 0 … 8)
 3. Rechtsklick auf `CMakeLists.txt` → **„Reload CMake Project"**
 4. `Strg + F9` → Build
 

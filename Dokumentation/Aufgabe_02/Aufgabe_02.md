@@ -22,6 +22,18 @@ Betrachten Sie die Aufgabenstellung zunächst **theoretisch** und anschließend 
 > Für die messtechnische Untersuchung steht der **Trace-Debugger (iC5700 BlueBox + WinIDEA)** zur Verfügung.  
 > Alternativ können GPIO-Toggle-Pins am Oszilloskop oder Logikanalysator ausgewertet werden.
 
+> 📌 **GPIO-Pins für Lauflicht und Messung:** Verwenden Sie die dedizierten Debug-Pins des Boards (Connector **CN10**, rechts unten):
+> | Pin | MCU-Pin | CN10-Pin |
+> |-----|---------|----------|
+> | DBG1 | PA3 | Pin 34 (D35) |
+> | DBG2 | PE15 | Pin 30 (D37) |
+> | DBG3 | PE12 | Pin 26 (D39) |
+> | DBG4 | PE10 | Pin 24 (D40) |
+>
+> ![Nucleo Board Pinout – CN10 Connector](../Stm32/pinout_nucleo_board.png)
+>
+> Genaue Pin-Belegung: Board User Manual [**UM3115**](../Stm32/um3115-stm32h5-nucleo144-board-mb1404-stmicroelectronics.pdf), Seite 32.
+
 ---
 
 ## Bearbeitung

@@ -12,6 +12,7 @@ Dieses Repository enthält die Firmware-Basis sowie die vollständige Aufgabendo
 Labor-Echtzeitsysteme/
 ├── Firmware/          # STM32-Firmware (Basis-Projekt, nicht verändern)
 ├── Dokumentation/     # Aufgabendokumentation der Studierenden
+│   ├── Aufgabe_00/
 │   ├── Aufgabe_01/
 │   ├── ...
 │   └── Aufgabe_08/

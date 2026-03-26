@@ -35,6 +35,7 @@ void aufgabe_freertos_init(void);
 /* ---------------------------------------------------------------------------
  * Aufgaben-spezifische Init-Funktionen (je eine pro aufgabe_XX.c)
  * ---------------------------------------------------------------------------*/
+void aufgabe_00_init(void);
 void aufgabe_01_init(void);
 void aufgabe_02_init(void);
 void aufgabe_03_init(void);

@@ -1,4 +1,4 @@
-﻿# Aufgabe 04 – Lauflicht mit Taster-Interrupt, Zustandsmaschine und Semaphore
+﻿﻿# Aufgabe 04 – Lauflicht mit Taster-Interrupt, Zustandsmaschine und Semaphore
 
 | | |
 |---|---|
@@ -79,6 +79,18 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)  { /* ... */ }
 2. Praktische Implementierung des Lauflichts, der Zustandsmaschine, des Taster-Callbacks **sowie des Semaphore-Schutzes** auf dem STM32 Nucleo-H563ZI
 3. Messtechnische Untersuchung über die GPIO-Pins sowie den **Trace-Debugger (WinIDEA / iC5700 BlueBox)**
 
+> 📌 **GPIO-Pins für Lauflicht und Messung:** Verwenden Sie die dedizierten Debug-Pins des Boards (Connector **CN10**, rechts unten):
+> | Pin | MCU-Pin | CN10-Pin |
+> |-----|---------|----------|
+> | DBG1 | PA3 | Pin 34 (D35) |
+> | DBG2 | PE15 | Pin 30 (D37) |
+> | DBG3 | PE12 | Pin 26 (D39) |
+> | DBG4 | PE10 | Pin 24 (D40) |
+>
+> ![Nucleo Board Pinout – CN10 Connector](../Stm32/pinout_nucleo_board.png)
+>
+> Genaue Pin-Belegung: Board User Manual [**UM3115**](../Stm32/um3115-stm32h5-nucleo144-board-mb1404-stmicroelectronics.pdf), Seite 32.
+
 ---
 
 ## Bearbeitung
@@ -101,13 +113,13 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)  { /* ... */ }
 
 | Thema | Link |
 |-------|------|
-| Binary Semaphore – Konzept & API | [freertos.org/xSemaphoreCreateBinary](https://www.freertos.org/xSemaphoreCreateBinary.html) |
-| `xSemaphoreGive()` – Semaphore freigeben (Task-Kontext) | [freertos.org/xSemaphoreGive](https://www.freertos.org/xSemaphoreGive.html) |
-| `xSemaphoreTake()` – Semaphore anfordern (Task-Kontext) | [freertos.org/xSemaphoreTake](https://www.freertos.org/xSemaphoreTake.html) |
-| `xSemaphoreGiveFromISR()` – Semaphore freigeben (ISR-Kontext) | [freertos.org/xSemaphoreGiveFromISR](https://www.freertos.org/xSemaphoreGiveFromISR.html) |
-| `xSemaphoreTakeFromISR()` – Semaphore anfordern (ISR-Kontext) | [freertos.org/xSemaphoreTakeFromISR](https://www.freertos.org/xSemaphoreTakeFromISR.html) |
-| `portYIELD_FROM_ISR()` – Context Switch nach ISR anstoßen | [freertos.org/portYIELD_FROM_ISR](https://www.freertos.org/portYIELD_FROM_ISR.html) |
-| Interrupt-safe API (…FromISR-Funktionen) – Übersicht | [freertos.org/a00270](https://www.freertos.org/a00270.html) |
-| Kritische Abschnitte & `taskENTER_CRITICAL()` | [freertos.org/taskENTER_CRITICAL_taskEXIT_CRITICAL](https://www.freertos.org/taskENTER_CRITICAL_taskEXIT_CRITICAL.html) |
+| Binary Semaphore – Konzept & API | [freertos.org – xSemaphoreCreateBinary](https://www.freertos.org/Documentation/02-Kernel/04-API-references/10-Semaphore-and-Mutexes/01-xSemaphoreCreateBinary) |
+| `xSemaphoreGive()` – Semaphore freigeben (Task-Kontext) | [freertos.org – xSemaphoreGive](https://www.freertos.org/Documentation/02-Kernel/04-API-references/10-Semaphore-and-Mutexes/15-xSemaphoreGive) |
+| `xSemaphoreTake()` – Semaphore anfordern (Task-Kontext) | [freertos.org – xSemaphoreTake](https://www.freertos.org/Documentation/02-Kernel/04-API-references/10-Semaphore-and-Mutexes/12-xSemaphoreTake) |
+| `xSemaphoreGiveFromISR()` – Semaphore freigeben (ISR-Kontext) | [freertos.org – xSemaphoreGiveFromISR](https://www.freertos.org/Documentation/02-Kernel/04-API-references/10-Semaphore-and-Mutexes/17-xSemaphoreGiveFromISR) |
+| `xSemaphoreTakeFromISR()` – Semaphore anfordern (ISR-Kontext) | [freertos.org – xSemaphoreTakeFromISR](https://www.freertos.org/Documentation/02-Kernel/04-API-references/10-Semaphore-and-Mutexes/13-xSemaphoreTakeFromISR) |
+| `vTaskNotifyGiveFromISR()` – Task aus ISR aufwecken | [freertos.org – vTaskNotifyGiveFromISR](https://www.freertos.org/Documentation/02-Kernel/04-API-references/05-Direct-to-task-notifications/02-vTaskNotifyGiveFromISR) |
+| Interrupt-safe API (…FromISR) – Übersicht | [freertos.org – Deferred Interrupt Handling](https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/11-Deferred-interrupt-handling) |
+| Kritische Abschnitte & `taskENTER_CRITICAL()` | [freertos.org – taskENTER_CRITICAL](https://www.freertos.org/Documentation/02-Kernel/04-API-references/04-RTOS-kernel-control/01-taskENTER_CRITICAL_taskEXIT_CRITICAL) |
 
 
