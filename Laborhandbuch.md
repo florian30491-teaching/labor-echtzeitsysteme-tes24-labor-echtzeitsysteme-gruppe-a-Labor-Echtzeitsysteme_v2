@@ -20,7 +20,7 @@ Es dient als **zentrales Nachschlagewerk** für die gesamte Labordauer.
 4. [Projekt einrichten](#4-projekt-einrichten)
    - [4.1 Repository klonen](#41-repository-klonen)
    - [4.2 CLion konfigurieren](#42-clion-konfigurieren)
-   - [4.3 Aufgabe auswählen](#43-aufgabe-auswählen)
+   - [4.3 Aufgabe auswählen (Preset wechseln)](#43-aufgabe-auswählen-preset-wechseln)
 5. [Bauen & Flashen](#5-bauen--flashen)
    - [5.1 Projekt bauen](#51-projekt-bauen)
    - [5.2 Firmware flashen](#52-firmware-flashen)
@@ -189,27 +189,15 @@ Als Entwicklungsumgebung wird **JetBrains CLion** verwendet.
    *(nicht nur den `Firmware/`-Unterordner – das Hauptprojekt ermöglicht auch Git-Integration und Commits direkt aus CLion)*
 2. Im **Project**-Fenster (links) mit **Rechtsklick auf `Firmware/CMakeLists.txt`** →  
    **„Load CMake Project"** auswählen  
-   → CLion erkennt das Firmware-Projekt und konfiguriert Build-Targets automatisch
-3. **Settings → Build, Execution, Deployment → Toolchains**  
-   Neue Toolchain anlegen oder bestehende anpassen:
+   → CLion erkennt die `CMakePresets.json` und legt automatisch für jede Aufgabe ein eigenes Build-Profil an
+3. **Settings → Build, Execution, Deployment → CMake**  
+   Die gewünschten Presets **aktivieren** (Häkchen setzen).  
+   Jedes Preset konfiguriert automatisch Toolchain, Build-Typ und Aufgabennummer.
 
-   | Feld | Wert |
-   |---|---|
-   | **Name** | `STM32CubeCLT` |
-   | **C-Compiler** | `.../STM32CubeCLT/STM32CubeCLT/st/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_.../tools/compiler/bin/clang` |
-   | **C++-Compiler** | `…/clang++` |
-   | **Debugger** | `.../STM32CubeCLT/GNU-tools-for-STM32/bin/arm-none-eabi-gdb` |
+   > 💡 Es ist nicht nötig, Toolchain oder CMake-Optionen manuell einzutragen –  
+   > die `CMakePresets.json` übernimmt alles automatisch.
 
-   > 💡 Der genaue Pfad zu Clang hängt von der installierten STM32CubeCLT-Version ab.  
-   > Unter Windows liegt CLT typischerweise unter `C:\ST\STM32CubeCLT_<version>\`.  
-   > Alternativ kann die CMake-Toolchain-Datei `cmake/starm-clang.cmake` direkt in den CMake-Optionen referenziert werden (siehe unten).
-
-4. **Settings → Build, Execution, Deployment → CMake**  
-   Im aktiven Profil unter **„CMake options"** eintragen:
-   ```
-   -DCMAKE_TOOLCHAIN_FILE=cmake/starm-clang.cmake -DAUFGABE=1
-   ```
-5. Rechtsklick auf `Firmware/CMakeLists.txt` → **„Reload CMake Project"**
+4. Rechtsklick auf `Firmware/CMakeLists.txt` → **„Reload CMake Project"**
 
 #### Git direkt aus CLion verwenden
 
@@ -272,6 +260,16 @@ Labor-Echtzeitsysteme/
 │   │
 │   └── cmake/stm32cubemx/             # Generiertes CMake-Subprojekt (HAL, Treiber)
 │
+│   └── build/                         # ⚙️ Build-Verzeichnisse (in .gitignore)
+│       ├── output/                    # ← Zentraler Debugger-Pfad (immer aktuell)
+│       │   ├── Labor-Echtzeitsyteme.elf
+│       │   ├── Labor-Echtzeitsyteme.map
+│       │   └── BUILD_INFO.txt         # Zeigt welche Aufgabe hier liegt
+│       ├── Aufgabe-0-Debug/           # Preset „Aufgabe 0 (Debug)"
+│       ├── Aufgabe-1-Debug/           # Preset „Aufgabe 1 (Debug)"
+│       ├── ...                        # usw. pro Aufgabe/Build-Typ
+│       └── Aufgabe-8-Release/         # Preset „Aufgabe 8 (Release)"
+│
 ├── Dokumentation/                     # Aufgabendokumentation der Studierenden
 │   ├── README.md                      # Inhaltsverzeichnis
 │   ├── Aufgabe_00/
@@ -320,37 +318,70 @@ git config --global user.email "deine@email.de"
 1. CLion starten → **File → Open** → **Hauptverzeichnis** `Labor-Echtzeitsysteme/` auswählen
 2. Im **Project**-Fenster (links): **Rechtsklick auf `Firmware/CMakeLists.txt`** →  
    **„Load CMake Project"**  
-   → CLion lädt das Firmware-Build-System und indexiert alle Quellen
+   → CLion erkennt automatisch die `CMakePresets.json` und legt für jede Aufgabe ein eigenes CMake-Profil an
 3. **Settings → Build, Execution, Deployment → CMake**  
-   Im aktiven Profil unter **„CMake options"** eintragen:
-   ```
-   -DCMAKE_TOOLCHAIN_FILE=cmake/starm-clang.cmake -DAUFGABE=0
-   ```
-4. **Build directory** auf `cmake-build-debug` setzen
-5. Rechtsklick auf `Firmware/CMakeLists.txt` → **„Reload CMake Project"**
+   CLion zeigt alle verfügbaren Presets – das gewünschte Preset **aktivieren** (Häkchen setzen):
+
+   | Preset | Beschreibung |
+   |---|---|
+   | **Aufgabe 0 – Einstieg (Debug)** | Einstiegsaufgabe, Debug-Build |
+   | **Aufgabe 1 (Debug)** | Aufgabe 1, Debug-Build |
+   | … | … |
+   | **Aufgabe 8 (Debug)** | Aufgabe 8, Debug-Build |
+   | **Aufgabe 0 – Einstieg (Release)** | Einstiegsaufgabe, optimierter Build |
+   | … | … |
+
+   > 💡 Jede Aufgabe hat ein eigenes Build-Verzeichnis (`build/Aufgabe-X-Debug/`).  
+   > Es muss **nicht** jedes Mal neu konfiguriert werden – einmal gebaute Aufgaben bleiben erhalten.
+
+4. Rechtsklick auf `Firmware/CMakeLists.txt` → **„Reload CMake Project"**
 
 > ℹ️ Das Öffnen des **Hauptverzeichnisses** (statt nur `Firmware/`) ist wichtig –  
 > nur so steht die vollständige Git-Integration (Commit, Branch, Push) direkt in CLion zur Verfügung.
 
 ---
 
-### 4.3 Aufgabe auswählen
+### 4.3 Aufgabe auswählen (Preset wechseln)
 
-Die aktive Aufgabe wird über die CMake-Option `AUFGABE` gesteuert.
+Für jede Aufgabe existiert ein vordefiniertes **CMake-Preset** in der Datei `CMakePresets.json`.  
+Jedes Preset setzt automatisch die richtige `AUFGABE`-Nummer und verwendet ein eigenes Build-Verzeichnis.
 
-**In CLion:**
-> Settings → Build, Execution, Deployment → CMake → CMake options  
-> Wert ändern auf z.B. `-DAUFGABE=3`  
-> → **„Reload CMake Project"**
+#### In CLion (empfohlen)
 
-**Auf der Kommandozeile:**
-```bash
-cd Firmware
-cmake -B cmake-build-debug -DAUFGABE=3
-cmake --build cmake-build-debug
+1. In der **Toolbar oben** das Drop-Down neben dem Build-Hammer öffnen
+2. Das gewünschte Preset auswählen, z.B. **„Aufgabe 3 (Debug)"**
+3. `Strg + F9` → Build
+
+> ℹ️ Alternativ: **Settings → Build, Execution, Deployment → CMake** → gewünschtes Preset aktivieren/deaktivieren.
+
+```
+┌─────────────────────────────────────────────────────┐
+│  🔨  Aufgabe 0 – Einstieg (Debug)  ▾   │  Build   │
+│       Aufgabe 1 (Debug)                             │
+│       Aufgabe 2 (Debug)                             │
+│       Aufgabe 3 (Debug)            ← auswählen     │
+│       ...                                           │
+│       Aufgabe 8 (Debug)                             │
+│       Aufgabe 0 – Einstieg (Release)                │
+│       ...                                           │
+└─────────────────────────────────────────────────────┘
 ```
 
-> ℹ️ Nach dem Ändern der Aufgabennummer muss CMake neu konfiguriert werden – ein reines „Build" reicht nicht.
+#### Auf der Kommandozeile
+
+```bash
+cd Firmware
+cmake --preset Aufgabe-3-Debug        # Konfigurieren
+cmake --build build/Aufgabe-3-Debug   # Bauen
+```
+
+Alle verfügbaren Presets anzeigen:
+```bash
+cmake --list-presets
+```
+
+> ℹ️ Beim Preset-Wechsel muss **kein** manuelles Reconfigure erfolgen –  
+> jedes Preset hat sein eigenes Build-Verzeichnis und ist sofort einsatzbereit.
 
 ---
 
@@ -358,29 +389,40 @@ cmake --build cmake-build-debug
 
 ### 5.1 Projekt bauen
 
-In CLion: `Strg + F9` oder **Build → Build Project**
+In CLion: gewünschtes Preset auswählen → `Strg + F9` oder **Build → Build Project**
 
-Das Ergebnis liegt unter:
+Das Ergebnis liegt – **unabhängig vom gewählten Preset** – immer unter:
 ```
-Firmware/cmake-build-debug/Labor-Echtzeitsyteme.elf
+Firmware/build/output/Labor-Echtzeitsyteme.elf
+Firmware/build/output/Labor-Echtzeitsyteme.map
+Firmware/build/output/BUILD_INFO.txt          ← zeigt welche Aufgabe aktuell gebaut wurde
 ```
+
+Die ELF-Datei wird nach jedem Build automatisch aus dem Preset-spezifischen Verzeichnis  
+(z.B. `build/Aufgabe-3-Debug/`) an diesen zentralen Ort kopiert.  
+Dadurch muss der Debugger (WinIDEA) nur **einmal** auf diesen Pfad konfiguriert werden.
 
 ---
 
 ### 5.2 Firmware flashen
 
+> ⚠️ **Im Labor** wird zum Flashen und Debuggen ausschließlich der **iSYSTEM iC5700 BlueBox** Trace-Debugger  
+> zusammen mit **WinIDEA** verwendet (siehe [Kapitel 6](#6-debugging-mit-winidea--ic5700-bluebox)).  
+> Die folgenden Methoden über CLion / ST-LINK sind **alternative Wege** für die Arbeit zu Hause  
+> oder wenn kein iC5700 zur Verfügung steht.
+
 #### Über CLion (Run-Konfiguration)
 
 1. Oben rechts in CLion die **Run-Konfiguration** auswählen (z.B. „Labor-Echtzeitsyteme")
 2. `Shift + F10` oder **Run → Run**  
-   CLion startet automatisch den GDB-Server und flasht das Board.
+   CLion startet automatisch den GDB-Server und flasht das Board über den On-Board ST-LINK.
 
 #### Über STM32_Programmer_CLI (manuell)
 
 Board per USB verbinden, dann:
 
 ```bash
-STM32_Programmer_CLI -c port=SWD -w cmake-build-debug/Labor-Echtzeitsyteme.elf -rst
+STM32_Programmer_CLI -c port=SWD -w build/output/Labor-Echtzeitsyteme.elf -rst
 ```
 
 ---
@@ -432,8 +474,10 @@ das **Flashen, Debuggen und die Trace-Analyse**.
    - Target: `STM32H563ZI`
 3. **Debug → Download File** → ELF-Datei auswählen:
    ```
-   Firmware/cmake-build-debug/Labor-Echtzeitsyteme.elf
+   Firmware/build/output/Labor-Echtzeitsyteme.elf
    ```
+   > ℹ️ Dieser Pfad ist **unabhängig vom gewählten Preset** immer derselbe –  
+   > die ELF-Datei wird nach jedem Build automatisch dorthin kopiert.
 4. **Debug → Connect** → Verbindung zur BlueBox herstellen
 5. Die ELF-Datei enthält vollständige Debug-Symbole (`-O0 -g3`, kein Inlining) –  
    WinIDEA zeigt C-Quellcode, Variablen und Call-Stack direkt an.
@@ -547,17 +591,20 @@ main()
 
 ### 7.2 Aufgabe wechseln
 
-**In CLion:**
-1. Settings → Build, Execution, Deployment → CMake → CMake options
-2. `-DAUFGABE=X` anpassen (X = 0 … 8)
-3. Rechtsklick auf `CMakeLists.txt` → **„Reload CMake Project"**
-4. `Strg + F9` → Build
+**In CLion (empfohlen):**
+1. In der Toolbar oben das **Preset-Drop-Down** öffnen
+2. Gewünschte Aufgabe auswählen, z.B. **„Aufgabe 5 (Debug)"**
+3. `Strg + F9` → Build  
+   → Die ELF-Datei wird automatisch nach `build/output/` kopiert
 
 **Auf der Kommandozeile:**
 ```bash
-cmake -B cmake-build-debug -DAUFGABE=5
-cmake --build cmake-build-debug
+cmake --preset Aufgabe-5-Debug
+cmake --build build/Aufgabe-5-Debug
 ```
+
+> ℹ️ Jedes Preset hat sein eigenes Build-Verzeichnis – der Wechsel ist sofort möglich,  
+> ohne dass eine andere Aufgabe neu gebaut werden muss.
 
 ---
 

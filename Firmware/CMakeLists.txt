@@ -87,11 +87,10 @@ if(CMAKE_BUILD_TYPE MATCHES "Debug")
             $<$<CONFIG:Debug>:USE_FULL_ASSERT=1>
     )
 
-    # Linker: nicht strippen, Map-Datei ausgeben
+    # Linker: nicht strippen  (Map-Datei wird bereits durch starm-clang.cmake erzeugt)
     add_link_options(
             $<$<CONFIG:Debug>:-Wl,--cref>
             $<$<CONFIG:Debug>:-Wl,--print-memory-usage>
-            $<$<CONFIG:Debug>:-Wl,-Map=${CMAKE_PROJECT_NAME}_debug.map>
     )
 endif()
 
@@ -135,3 +134,35 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+
+# ---------------------------------------------------------------------------
+# Zentrales Output-Verzeichnis
+#
+# Egal welches Preset/Aufgabe gebaut wird – das ELF und die MAP-Datei werden
+# immer nach build/output/ kopiert.  Der Debugger muss nur auf diesen einen
+# Pfad zeigen:
+#   build/output/Labor-Echtzeitsyteme.elf
+# ---------------------------------------------------------------------------
+set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/build/output")
+file(MAKE_DIRECTORY ${OUTPUT_DIR})
+
+# Info-Datei: zeigt welche Aufgabe aktuell im Output-Verzeichnis liegt
+string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
+file(WRITE "${OUTPUT_DIR}/BUILD_INFO.txt"
+    "Aufgabe:      ${AUFGABE} (aufgabe_${AUFGABE_NR}.c)\n"
+    "Build-Typ:    ${CMAKE_BUILD_TYPE}\n"
+    "Preset:       ${CMAKE_PRESET_NAME}\n"
+    "Konfiguriert: ${BUILD_TIMESTAMP}\n"
+)
+
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMENT ">>> Kopiere ELF + MAP nach ${OUTPUT_DIR}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>"
+        "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.map"
+        "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
+    VERBATIM
+)
+

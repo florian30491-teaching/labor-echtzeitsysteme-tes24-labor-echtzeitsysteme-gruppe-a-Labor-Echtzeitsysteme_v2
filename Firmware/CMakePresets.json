@@ -5,208 +5,145 @@
             "name": "base",
             "hidden": true,
             "generator": "Ninja",
-            "toolchainFile": "${sourceDir}/cmake/starm-clang.cmake",
-            "cacheVariables": {}
+            "toolchainFile": "${sourceDir}/cmake/starm-clang.cmake"
         },
         {
             "name": "Debug-base",
             "hidden": true,
             "inherits": "base",
-            "binaryDir": "${sourceDir}/build/Debug",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
         },
         {
             "name": "Release-base",
             "hidden": true,
             "inherits": "base",
-            "binaryDir": "${sourceDir}/build/Release",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
-            }
+            "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
         },
         {
             "name": "Aufgabe-0-Debug",
             "displayName": "Aufgabe 0 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-0-Debug",
             "cacheVariables": { "AUFGABE": "0" }
         },
         {
             "name": "Aufgabe-1-Debug",
             "displayName": "Aufgabe 1 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-1-Debug",
             "cacheVariables": { "AUFGABE": "1" }
         },
         {
             "name": "Aufgabe-2-Debug",
             "displayName": "Aufgabe 2 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-2-Debug",
             "cacheVariables": { "AUFGABE": "2" }
         },
         {
             "name": "Aufgabe-3-Debug",
             "displayName": "Aufgabe 3 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-3-Debug",
             "cacheVariables": { "AUFGABE": "3" }
         },
         {
             "name": "Aufgabe-4-Debug",
             "displayName": "Aufgabe 4 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-4-Debug",
             "cacheVariables": { "AUFGABE": "4" }
         },
         {
             "name": "Aufgabe-5-Debug",
             "displayName": "Aufgabe 5 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-5-Debug",
             "cacheVariables": { "AUFGABE": "5" }
         },
         {
             "name": "Aufgabe-6-Debug",
             "displayName": "Aufgabe 6 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-6-Debug",
             "cacheVariables": { "AUFGABE": "6" }
         },
         {
             "name": "Aufgabe-7-Debug",
             "displayName": "Aufgabe 7 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-7-Debug",
             "cacheVariables": { "AUFGABE": "7" }
         },
         {
             "name": "Aufgabe-8-Debug",
             "displayName": "Aufgabe 8 (Debug)",
             "inherits": "Debug-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-8-Debug",
             "cacheVariables": { "AUFGABE": "8" }
         },
         {
             "name": "Aufgabe-0-Release",
             "displayName": "Aufgabe 0 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-0-Release",
             "cacheVariables": { "AUFGABE": "0" }
         },
         {
             "name": "Aufgabe-1-Release",
             "displayName": "Aufgabe 1 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-1-Release",
             "cacheVariables": { "AUFGABE": "1" }
         },
         {
             "name": "Aufgabe-2-Release",
             "displayName": "Aufgabe 2 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-2-Release",
             "cacheVariables": { "AUFGABE": "2" }
         },
         {
             "name": "Aufgabe-3-Release",
             "displayName": "Aufgabe 3 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-3-Release",
             "cacheVariables": { "AUFGABE": "3" }
         },
         {
             "name": "Aufgabe-4-Release",
             "displayName": "Aufgabe 4 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-4-Release",
             "cacheVariables": { "AUFGABE": "4" }
         },
         {
             "name": "Aufgabe-5-Release",
             "displayName": "Aufgabe 5 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-5-Release",
             "cacheVariables": { "AUFGABE": "5" }
         },
         {
             "name": "Aufgabe-6-Release",
             "displayName": "Aufgabe 6 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-6-Release",
             "cacheVariables": { "AUFGABE": "6" }
         },
         {
             "name": "Aufgabe-7-Release",
             "displayName": "Aufgabe 7 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-7-Release",
             "cacheVariables": { "AUFGABE": "7" }
         },
         {
             "name": "Aufgabe-8-Release",
             "displayName": "Aufgabe 8 (Release)",
             "inherits": "Release-base",
+            "binaryDir": "${sourceDir}/build/Aufgabe-8-Release",
             "cacheVariables": { "AUFGABE": "8" }
-        }
-    ],
-    "buildPresets": [
-        {
-            "name": "Aufgabe-0-Debug",
-            "configurePreset": "Aufgabe-0-Debug"
-        },
-        {
-            "name": "Aufgabe-1-Debug",
-            "configurePreset": "Aufgabe-1-Debug"
-        },
-        {
-            "name": "Aufgabe-2-Debug",
-            "configurePreset": "Aufgabe-2-Debug"
-        },
-        {
-            "name": "Aufgabe-3-Debug",
-            "configurePreset": "Aufgabe-3-Debug"
-        },
-        {
-            "name": "Aufgabe-4-Debug",
-            "configurePreset": "Aufgabe-4-Debug"
-        },
-        {
-            "name": "Aufgabe-5-Debug",
-            "configurePreset": "Aufgabe-5-Debug"
-        },
-        {
-            "name": "Aufgabe-6-Debug",
-            "configurePreset": "Aufgabe-6-Debug"
-        },
-        {
-            "name": "Aufgabe-7-Debug",
-            "configurePreset": "Aufgabe-7-Debug"
-        },
-        {
-            "name": "Aufgabe-8-Debug",
-            "configurePreset": "Aufgabe-8-Debug"
-        },
-        {
-            "name": "Aufgabe-0-Release",
-            "configurePreset": "Aufgabe-0-Release"
-        },
-        {
-            "name": "Aufgabe-1-Release",
-            "configurePreset": "Aufgabe-1-Release"
-        },
-        {
-            "name": "Aufgabe-2-Release",
-            "configurePreset": "Aufgabe-2-Release"
-        },
-        {
-            "name": "Aufgabe-3-Release",
-            "configurePreset": "Aufgabe-3-Release"
-        },
-        {
-            "name": "Aufgabe-4-Release",
-            "configurePreset": "Aufgabe-4-Release"
-        },
-        {
-            "name": "Aufgabe-5-Release",
-            "configurePreset": "Aufgabe-5-Release"
-        },
-        {
-            "name": "Aufgabe-6-Release",
-            "configurePreset": "Aufgabe-6-Release"
-        },
-        {
-            "name": "Aufgabe-7-Release",
-            "configurePreset": "Aufgabe-7-Release"
-        },
-        {
-            "name": "Aufgabe-8-Release",
-            "configurePreset": "Aufgabe-8-Release"
         }
     ]
 }

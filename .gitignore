@@ -1,2 +1,4 @@
 /Firmware/winIDEA/Labor-Echtzeitsysteme.trd
 /Firmware/winIDEA/Labor-Echtzeitsysteme.Progress.log
+/Firmware/build/
+/Firmware/cmake-build-*/
