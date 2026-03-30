@@ -30,13 +30,13 @@ set(CMAKE_PROJECT_NAME Labor-Echtzeitsyteme)
 #   Settings -> Build, Execution, Deployment -> CMake -> CMake options
 #   Eintrag: -DAUFGABE=3
 #
-# Gueltige Werte: 1 – 8  (Standard: 1)
+# Gueltige Werte: 0 – 8  (Standard: 0)
 # ---------------------------------------------------------------------------
-set(AUFGABE "1" CACHE STRING "Aktive Aufgabe (1-8)")
-set_property(CACHE AUFGABE PROPERTY STRINGS 1 2 3 4 5 6 7 8)
+set(AUFGABE "0" CACHE STRING "Aktive Aufgabe (0-8)")
+set_property(CACHE AUFGABE PROPERTY STRINGS 0 1 2 3 4 5 6 7 8)
 
-if(AUFGABE LESS 1 OR AUFGABE GREATER 8)
-    message(FATAL_ERROR "Ungueltige Aufgabe '${AUFGABE}'. Erlaubte Werte: 1-8.")
+if(AUFGABE LESS 0 OR AUFGABE GREATER 8)
+    message(FATAL_ERROR "Ungueltige Aufgabe '${AUFGABE}'. Erlaubte Werte: 0-8.")
 endif()
 
 message(STATUS "")
@@ -87,11 +87,10 @@ if(CMAKE_BUILD_TYPE MATCHES "Debug")
             $<$<CONFIG:Debug>:USE_FULL_ASSERT=1>
     )
 
-    # Linker: nicht strippen, Map-Datei ausgeben
+    # Linker: nicht strippen  (Map-Datei wird bereits durch starm-clang.cmake erzeugt)
     add_link_options(
             $<$<CONFIG:Debug>:-Wl,--cref>
             $<$<CONFIG:Debug>:-Wl,--print-memory-usage>
-            $<$<CONFIG:Debug>:-Wl,-Map=${CMAKE_PROJECT_NAME}_debug.map>
     )
 endif()
 
@@ -110,16 +109,8 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Zentraler Aufgaben-Dispatcher (wertet AUFGABE_NR zur Compile-Zeit aus)
     ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgaben.c
-    # Alle Aufgaben-Implementierungen (welche aktiv ist steuert #if AUFGABE_NR)
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_00.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_01.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_02.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_03.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_04.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_05.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_06.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_07.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_08.c
+    # Nur die aktive Aufgabe kompilieren (bedarfsgerecht)
+    ${CMAKE_CURRENT_SOURCE_DIR}/Aufgaben/aufgabe_${AUFGABE_NR}.c
 )
 
 # Add include paths
@@ -143,3 +134,35 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 
     # Add user defined libraries
 )
+
+# ---------------------------------------------------------------------------
+# Zentrales Output-Verzeichnis
+#
+# Egal welches Preset/Aufgabe gebaut wird – das ELF und die MAP-Datei werden
+# immer nach build/output/ kopiert.  Der Debugger muss nur auf diesen einen
+# Pfad zeigen:
+#   build/output/Labor-Echtzeitsyteme.elf
+# ---------------------------------------------------------------------------
+set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/build/output")
+file(MAKE_DIRECTORY ${OUTPUT_DIR})
+
+# Info-Datei: zeigt welche Aufgabe aktuell im Output-Verzeichnis liegt
+string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
+file(WRITE "${OUTPUT_DIR}/BUILD_INFO.txt"
+    "Aufgabe:      ${AUFGABE} (aufgabe_${AUFGABE_NR}.c)\n"
+    "Build-Typ:    ${CMAKE_BUILD_TYPE}\n"
+    "Preset:       ${CMAKE_PRESET_NAME}\n"
+    "Konfiguriert: ${BUILD_TIMESTAMP}\n"
+)
+
+add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+    COMMENT ">>> Kopiere ELF + MAP nach ${OUTPUT_DIR}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>"
+        "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.map"
+        "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
+    VERBATIM
+)
+
