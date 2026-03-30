@@ -1,10 +1,9 @@
 # Aufgabe 00 – Einstieg: LED-Toggle mit einem FreeRTOS-Task
 
-| | |
-|---|---|
-| **Gruppe** | |
-| **Datum** | |
-| **Branch** | `feature/aufgabe00` |
+> 📝 **Bearbeitung:** [→ Bearbeitung_00.md](Bearbeitung_00.md)
+>
+> ⚠️ **Diese Datei ist die Aufgabenstellung und darf nicht verändert werden.**
+> Alle Antworten, Notizen und Code-Snippets gehören ausschließlich in die Bearbeitungsdatei.
 
 ---
 
@@ -43,19 +42,3 @@ HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 Betrachten Sie die Aufgabenstellung zunächst **theoretisch** und anschließend **praktisch**, indem Sie das Beispiel auf dem Board implementieren und die blinkende LED verifizieren.
 
 ---
-
-## Bearbeitung
-
-### Theoretisch
-
-<!-- Vorüberlegungen: Was ist ein FreeRTOS-Task? Was macht xTaskCreate? -->
-<!-- Bilder direkt in diesem Ordner ablegen: ![Beschreibung](dateiname.png) -->
-
-### Praktisch
-
-<!-- Umsetzung, Beobachtungen -->
-
-```c
-// Code-Snippet hier einfügen
-```
-

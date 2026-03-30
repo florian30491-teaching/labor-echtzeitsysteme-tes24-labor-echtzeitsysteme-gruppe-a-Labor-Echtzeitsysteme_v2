@@ -1,10 +1,9 @@
 ﻿# Aufgabe 01 – Präemptives Scheduling mit zwei Tasks gleicher Priorität
 
-| | |
-|---|---|
-| **Gruppe** | |
-| **Datum** | |
-| **Branch** | `feature/aufgabe01` |
+> 📝 **Bearbeitung:** [→ Bearbeitung_01.md](Bearbeitung_01.md)
+>
+> ⚠️ **Diese Datei ist die Aufgabenstellung und darf nicht verändert werden.**
+> Alle Antworten, Notizen und Code-Snippets gehören ausschließlich in die Bearbeitungsdatei.
 
 ---
 
@@ -45,17 +44,3 @@ Betrachten Sie die Aufgabenstellung zunächst **theoretisch** und anschließend 
 
 ---
 
-## Bearbeitung
-
-### Theoretisch
-
-<!-- Vorüberlegungen, Konzepte, Zustandsdiagramm -->
-<!-- Bilder direkt in diesem Ordner ablegen: ![Beschreibung](dateiname.png) -->
-
-### Praktisch
-
-<!-- Umsetzung, Messergebnisse, Code-Snippets -->
-
-```c
-// Code-Snippet hier einfügen
-```

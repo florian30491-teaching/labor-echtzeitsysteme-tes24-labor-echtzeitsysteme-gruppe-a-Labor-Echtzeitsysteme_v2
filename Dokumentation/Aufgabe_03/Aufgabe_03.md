@@ -1,10 +1,9 @@
 ﻿﻿# Aufgabe 03 – Rate Monotonic Scheduling mit drei Tasks
 
-| | |
-|---|---|
-| **Gruppe** | |
-| **Datum** | |
-| **Branch** | `feature/aufgabe03` |
+> 📝 **Bearbeitung:** [→ Bearbeitung_03.md](Bearbeitung_03.md)
+>
+> ⚠️ **Diese Datei ist die Aufgabenstellung und darf nicht verändert werden.**
+> Alle Antworten, Notizen und Code-Snippets gehören ausschließlich in die Bearbeitungsdatei.
 
 ---
 
@@ -49,18 +48,3 @@ Alternativ können die GPIO-Pins am Oszilloskop oder Logikanalysator ausgewertet
 Betrachten Sie die Aufgabenstellung zunächst **theoretisch** und anschließend **praktisch**.
 
 ---
-
-## Bearbeitung
-
-### Theoretisch
-
-<!-- Vorüberlegungen, RMS-Analyse, Timing-Diagramm -->
-<!-- Bilder direkt in diesem Ordner ablegen: ![Beschreibung](dateiname.png) -->
-
-### Praktisch
-
-<!-- Umsetzung, Messergebnisse, Code-Snippets -->
-
-```c
-// Code-Snippet hier einfügen
-```

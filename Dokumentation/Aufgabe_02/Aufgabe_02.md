@@ -1,10 +1,9 @@
 ﻿# Aufgabe 02 – Lauflicht mit periodischem Task
 
-| | |
-|---|---|
-| **Gruppe** | |
-| **Datum** | |
-| **Branch** | `feature/aufgabe02` |
+> 📝 **Bearbeitung:** [→ Bearbeitung_02.md](Bearbeitung_02.md)
+>
+> ⚠️ **Diese Datei ist die Aufgabenstellung und darf nicht verändert werden.**
+> Alle Antworten, Notizen und Code-Snippets gehören ausschließlich in die Bearbeitungsdatei.
 
 ---
 
@@ -36,17 +35,3 @@ Betrachten Sie die Aufgabenstellung zunächst **theoretisch** und anschließend 
 
 ---
 
-## Bearbeitung
-
-### Theoretisch
-
-<!-- Vorüberlegungen, Konzepte -->
-<!-- Bilder direkt in diesem Ordner ablegen: ![Beschreibung](dateiname.png) -->
-
-### Praktisch
-
-<!-- Umsetzung, Messergebnisse, Code-Snippets -->
-
-```c
-// Code-Snippet hier einfügen
-```

@@ -1,10 +1,9 @@
 ﻿﻿# Aufgabe 04 – Lauflicht mit Taster-Interrupt, Zustandsmaschine und Semaphore
 
-| | |
-|---|---|
-| **Gruppe** | |
-| **Datum** | |
-| **Branch** | `feature/aufgabe04` |
+> 📝 **Bearbeitung:** [→ Bearbeitung_04.md](Bearbeitung_04.md)
+>
+> ⚠️ **Diese Datei ist die Aufgabenstellung und darf nicht verändert werden.**
+> Alle Antworten, Notizen und Code-Snippets gehören ausschließlich in die Bearbeitungsdatei.
 
 ---
 
@@ -93,22 +92,6 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)  { /* ... */ }
 
 ---
 
-## Bearbeitung
-
-### Theoretisch
-
-<!-- Vorüberlegungen, Konzepte, Zustandsdiagramm -->
-
-### Praktisch
-
-<!-- Umsetzung, Messergebnisse, Code-Snippets -->
-
-```c
-// Code-Snippet hier einfügen
-```
-
----
-
 ## 📚 FreeRTOS-Referenzen
 
 | Thema | Link |
@@ -121,5 +104,3 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)  { /* ... */ }
 | `vTaskNotifyGiveFromISR()` – Task aus ISR aufwecken | [freertos.org – vTaskNotifyGiveFromISR](https://www.freertos.org/Documentation/02-Kernel/04-API-references/05-Direct-to-task-notifications/02-vTaskNotifyGiveFromISR) |
 | Interrupt-safe API (…FromISR) – Übersicht | [freertos.org – Deferred Interrupt Handling](https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/11-Deferred-interrupt-handling) |
 | Kritische Abschnitte & `taskENTER_CRITICAL()` | [freertos.org – taskENTER_CRITICAL](https://www.freertos.org/Documentation/02-Kernel/04-API-references/04-RTOS-kernel-control/01-taskENTER_CRITICAL_taskEXIT_CRITICAL) |
-
-
