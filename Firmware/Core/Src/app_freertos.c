@@ -96,12 +96,12 @@ void MX_FREERTOS_Init(void) {
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
   /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* Aufgaben-Tasks initialisieren (Auswahl via -DAUFGABE=X beim CMake-Build) */
   aufgabe_freertos_init();
-  osThreadTerminate(defaultTaskHandle);
+  //osThreadTerminate(defaultTaskHandle);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
