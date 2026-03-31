@@ -1,8 +1,8 @@
 ﻿/**
  ******************************************************************************
  * @file    aufgabe_04.c
- * @brief   Aufgabe 04 – Semaphoren in FreeRTOS: Arten, Konzepte und
- *          Anwendung (Lauflicht mit Zustandsmaschine und Semaphore)
+ * @brief   Aufgabe 04 – Lauflicht mit Taster-Interrupt, Zustandsmaschine
+ *          und Binary Semaphore
  *
  *          Hinweis: Nur ...FromISR()-Varianten der FreeRTOS-API in den
  *          EXTI-Callbacks verwenden!

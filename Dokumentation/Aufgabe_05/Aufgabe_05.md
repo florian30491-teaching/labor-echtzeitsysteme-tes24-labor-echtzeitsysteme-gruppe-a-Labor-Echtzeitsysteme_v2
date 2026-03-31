@@ -90,6 +90,27 @@ Beantwortet in der [Bearbeitung](Bearbeitung_05.md) folgende Fragen:
 Übernehmt das **Lauflicht aus Aufgabe 02** (mindestens 3 GPIO-Pins, z. B. DBG1, DBG2, DBG3) in `aufgabe_05.c`.
 Der Lauflicht-Task läuft initial mit einer Periode von **250 ms**.
 
+### Callback-Gerüst in `aufgabe_05.c` anlegen
+
+Die Codevorlage `aufgabe_05.c` enthält zunächst nur die leere Funktion `aufgabe_05_init()`.
+Damit ihr die `__weak`-Callbacks des HAL-Treibers überschreiben könnt, müsst ihr die folgenden **Funktionsgerüste** in eure Datei `aufgabe_05.c` kopieren:
+
+```c
+void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+{
+    /* Eigene Implementierung hier – überschreibt die __weak-Version */
+}
+
+void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+{
+    /* Eigene Implementierung hier – überschreibt die __weak-Version */
+}
+```
+
+> ⚠️ **Wichtig:** Kopiert die obigen Funktionssignaturen exakt so in `aufgabe_05.c`.
+> Durch die gleichnamige, starke Definition werden die `__weak`-Versionen aus dem HAL-Treiber automatisch vom Linker ersetzt.
+> Entscheidet selbst, welcher der beiden Callbacks für diese Aufgabe geeignet ist und begründet eure Wahl.
+
 ### Taster-Interrupt: Pin prüfen und Entprellen
 
 Im Callback muss zunächst geprüft werden, **welcher Pin** den Interrupt ausgelöst hat, da der Callback für **alle** EXTI-Pins aufgerufen wird:
