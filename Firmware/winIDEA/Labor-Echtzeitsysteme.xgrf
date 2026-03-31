@@ -42,7 +42,7 @@
      <REG_ROOT>
       <RegVer>1297367044</RegVer>
       <ANGUIData.0>
-       <Filetime type="B">DNOBEEBPHHKMNMAB</Filetime>
+       <Filetime type="B">LGPBBMEFPMMANMAB</Filetime>
        <GUID type="B">FKMBAFALBMENPOEAKOFNKIKDGAFOLPPO</GUID>
        <CVData>
         <Columns>
@@ -137,7 +137,7 @@
           <ScrollPosition>40</ScrollPosition>
           <SnapOnFindEvent>true</SnapOnFindEvent>
           <TimeLeft>40</TimeLeft>
-          <TimeRight>1000000008</TimeRight>
+          <TimeRight>297638133</TimeRight>
           <ZoomLevel>1012146</ZoomLevel>
           <ViewData>
            <CurrentApplicationIndex>65535</CurrentApplicationIndex>
@@ -209,6 +209,22 @@
    <REG_ROOT>
     <RegVer>1297367044</RegVer>
     <DesktopLayout>
+     <FileHistory>
+      <FileHistoryEntries>
+       <__.0>
+        <RelativeFilePath>..\..\..\SimulationBoxMunich\SimulationBoxMunich\Drivers\STM32H5xx_HAL_Driver\Src\stm32h5xx_hal_gpio.c</RelativeFilePath>
+       </__.0>
+       <__.1>
+        <RelativeFilePath>..\..\..\SimulationBoxMunich\SimulationBoxMunich\Core\Src\main.c</RelativeFilePath>
+       </__.1>
+       <__.2>
+        <RelativeFilePath>..\..\..\SimulationBoxMunich\SimulationBoxMunich\Elements\EosSimulation\sources\eos.cpp</RelativeFilePath>
+       </__.2>
+       <__.3>
+        <RelativeFilePath>..\..\..\SimulationBoxMunich\SimulationBoxMunich\Elements\SimulationBoxMunich\sources\application.cpp</RelativeFilePath>
+       </__.3>
+      </FileHistoryEntries>
+     </FileHistory>
      <ToolbarData>
       <Toolbars.CMake>
        <Opened>false</Opened>
@@ -236,16 +252,16 @@
         <ViewType>Symbols</ViewType>
        </__.0>
        <__.1>
-        <ViewId>8</ViewId>
-        <ViewType>Output_Progress</ViewType>
-       </__.1>
-       <__.2>
         <ViewId>2</ViewId>
         <ViewType>Locals</ViewType>
-       </__.2>
-       <__.3>
+       </__.1>
+       <__.2>
         <ViewId>3</ViewId>
         <ViewType>CustomWatch</ViewType>
+       </__.2>
+       <__.3>
+        <ViewId>10</ViewId>
+        <ViewType>WIP</ViewType>
        </__.3>
        <__.4>
         <ViewId>5</ViewId>
@@ -260,8 +276,8 @@
         <ViewType>Document</ViewType>
        </__.6>
        <__.7>
-        <ViewId>10</ViewId>
-        <ViewType>WIP</ViewType>
+        <ViewId>8</ViewId>
+        <ViewType>Output_Progress</ViewType>
        </__.7>
       </AllViewBaseData>
       <DissasemblyViews>
@@ -331,12 +347,6 @@
           <RootItem>
            <Name></Name>
            <Options>0</Options>
-           <ChildItems>
-            <__.0>
-             <Name>App/Cortex-M33</Name>
-             <Options>36</Options>
-            </__.0>
-           </ChildItems>
           </RootItem>
          </TreeState>
         </TreeData>
@@ -526,17 +536,17 @@
       </WIPViews>
      </ViewData>
      <ViewLayout>
-      <PrimaryDocumentPaneId>5</PrimaryDocumentPaneId>
+      <PrimaryDocumentPaneId>56</PrimaryDocumentPaneId>
       <Frames>
        <__.0>
         <FocusedViewId>6</FocusedViewId>
         <FrameState>3</FrameState>
         <IsPrimary>true</IsPrimary>
         <Bounds>
-         <Bottom>950</Bottom>
-         <Left>632</Left>
-         <Right>1654</Right>
-         <Top>379</Top>
+         <Bottom>914</Bottom>
+         <Left>450</Left>
+         <Right>1472</Right>
+         <Top>343</Top>
         </Bounds>
         <Dock>
          <DockType>None</DockType>
@@ -719,10 +729,6 @@
       </FindInFilesDialogData>
      </GlobalData>
      <History>
-      <ComboBox>
-       <ComboBoxes>
-       </ComboBoxes>
-      </ComboBox>
      </History>
      <Options>
       <CallstackWindow>

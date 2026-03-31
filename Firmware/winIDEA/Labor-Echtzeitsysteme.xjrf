@@ -146,7 +146,7 @@
            <Area></Area>
            <Load>true</Load>
            <OverrideMemArea>false</OverrideMemArea>
-           <Path>..\build\Debug\Labor-Echtzeitsyteme.elf</Path>
+           <Path>..\build\output\Labor-Echtzeitsyteme.elf</Path>
            <PgmDestination>memory</PgmDestination>
            <TargetDir></TargetDir>
            <UseDefaultMSID>true</UseDefaultMSID>
@@ -246,13 +246,13 @@
         <SFRName>STM32H563xI</SFRName>
         <UserName>MCU</UserName>
         <DLFs_Program>
-         <DefaultFile>1</DefaultFile>
+         <DefaultFile>0</DefaultFile>
          <File>
           <__.0>
            <Area></Area>
            <Load>true</Load>
            <OverrideMemArea>false</OverrideMemArea>
-           <Path>..\build\Debug\Labor-Echtzeitsyteme.elf</Path>
+           <Path>..\build\output\Labor-Echtzeitsyteme.elf</Path>
            <PgmDestination>memory</PgmDestination>
            <TargetDir></TargetDir>
            <UseDefaultMSID>true</UseDefaultMSID>
@@ -657,7 +657,7 @@
     <RegVer>1297367044</RegVer>
     <Project_Local>
      <Project.0>
-      <DefaultTargetName>Labor-Echtzeitsysteme - Debug</DefaultTargetName>
+      <DefaultTargetName></DefaultTargetName>
      </Project.0>
     </Project_Local>
    </REG_ROOT>
