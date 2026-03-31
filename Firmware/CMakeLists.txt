@@ -147,8 +147,8 @@ set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/build/output")
 file(MAKE_DIRECTORY ${OUTPUT_DIR})
 
 # Info-Datei: zeigt welche Aufgabe aktuell im Output-Verzeichnis liegt.
-# Das Skript wird bei jedem Build ausgefuehrt (POST_BUILD), damit der
-# Zeitstempel den tatsaechlichen Build-Zeitpunkt widerspiegelt.
+# Das Skript wird nur ausgefuehrt wenn tatsaechlich neu gebaut wurde,
+# damit der Zeitstempel den echten Build-Zeitpunkt widerspiegelt.
 set(GENERATE_BUILD_INFO_SCRIPT "${CMAKE_BINARY_DIR}/generate_build_info.cmake")
 file(WRITE "${GENERATE_BUILD_INFO_SCRIPT}"
     "string(TIMESTAMP BUILD_TIMESTAMP \"%Y-%m-%d %H:%M:%S\")\n"
@@ -160,15 +160,28 @@ file(WRITE "${GENERATE_BUILD_INFO_SCRIPT}"
     ")\n"
 )
 
-add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+# Kopiere ELF + MAP nach ${OUTPUT_DIR} -- nur wenn sich die Quelldateien
+# tatsaechlich geaendert haben.  OUTPUT-basierte Abhaengigkeit statt
+# POST_BUILD, damit Ninja die Kopie ueberspringt wenn nichts neu gebaut wurde.
+add_custom_command(
+    OUTPUT "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
+           "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
+           "${OUTPUT_DIR}/BUILD_INFO.txt"
+    DEPENDS ${CMAKE_PROJECT_NAME}
     COMMENT ">>> Kopiere ELF + MAP nach ${OUTPUT_DIR}"
-    COMMAND ${CMAKE_COMMAND} -P "${GENERATE_BUILD_INFO_SCRIPT}"
-    COMMAND ${CMAKE_COMMAND} -E copy
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>"
         "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
-    COMMAND ${CMAKE_COMMAND} -E copy
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.map"
         "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
+    COMMAND ${CMAKE_COMMAND} -P "${GENERATE_BUILD_INFO_SCRIPT}"
     VERBATIM
+)
+
+add_custom_target(copy_build_output ALL
+    DEPENDS "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
+            "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
+            "${OUTPUT_DIR}/BUILD_INFO.txt"
 )
 
