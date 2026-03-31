@@ -146,21 +146,27 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/build/output")
 file(MAKE_DIRECTORY ${OUTPUT_DIR})
 
-# Info-Datei: zeigt welche Aufgabe aktuell im Output-Verzeichnis liegt
-string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%d %H:%M:%S")
-file(WRITE "${OUTPUT_DIR}/BUILD_INFO.txt"
-    "Aufgabe:      ${AUFGABE} (aufgabe_${AUFGABE_NR}.c)\n"
-    "Build-Typ:    ${CMAKE_BUILD_TYPE}\n"
-    "Preset:       ${CMAKE_PRESET_NAME}\n"
-    "Konfiguriert: ${BUILD_TIMESTAMP}\n"
+# Info-Datei: zeigt welche Aufgabe aktuell im Output-Verzeichnis liegt.
+# Das Skript wird bei jedem Build ausgefuehrt (POST_BUILD), damit der
+# Zeitstempel den tatsaechlichen Build-Zeitpunkt widerspiegelt.
+set(GENERATE_BUILD_INFO_SCRIPT "${CMAKE_BINARY_DIR}/generate_build_info.cmake")
+file(WRITE "${GENERATE_BUILD_INFO_SCRIPT}"
+    "string(TIMESTAMP BUILD_TIMESTAMP \"%Y-%m-%d %H:%M:%S\")\n"
+    "file(WRITE \"${OUTPUT_DIR}/BUILD_INFO.txt\"\n"
+    "    \"Aufgabe:      ${AUFGABE} (aufgabe_${AUFGABE_NR}.c)\\n\"\n"
+    "    \"Build-Typ:    ${CMAKE_BUILD_TYPE}\\n\"\n"
+    "    \"Preset:       ${CMAKE_PRESET_NAME}\\n\"\n"
+    "    \"Gebaut:       \${BUILD_TIMESTAMP}\\n\"\n"
+    ")\n"
 )
 
 add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
     COMMENT ">>> Kopiere ELF + MAP nach ${OUTPUT_DIR}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    COMMAND ${CMAKE_COMMAND} -P "${GENERATE_BUILD_INFO_SCRIPT}"
+    COMMAND ${CMAKE_COMMAND} -E copy
         "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>"
         "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    COMMAND ${CMAKE_COMMAND} -E copy
         "${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.map"
         "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
     VERBATIM
