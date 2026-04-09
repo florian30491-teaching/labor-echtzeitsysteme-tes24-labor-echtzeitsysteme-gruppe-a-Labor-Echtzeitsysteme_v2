@@ -14,6 +14,16 @@ Das bestehende Lauflicht wird um eine **Taster-Steuerung** erweitert: Bei jedem 
 
 Die Kommunikation zwischen dem **Taster-Interrupt** (ISR-Kontext) und dem **Lauflicht-Task** (Task-Kontext) wird über eine **Binary Semaphore** realisiert, wie sie in Aufgabe 04 eingeführt wurde.
 
+> ### ℹ️ Abgrenzung zu Aufgabe 04
+>
+> In **Aufgabe 04** wurde die Binary Semaphore als **Ressourcenschutz** (Mutex-Muster) eingesetzt:
+> Die ISR und der Task greifen beide lesend/schreibend auf eine gemeinsame Zustandsvariable zu – die Semaphore schützt diesen kritischen Abschnitt (`TakeFromISR` → Zustand ändern → `GiveFromISR`).
+>
+> In **Aufgabe 05** wird die Binary Semaphore als **Signalisierungsmechanismus** (*Deferred Interrupt Processing*) verwendet:
+> Die ISR signalisiert dem Task lediglich, dass ein Ereignis eingetreten ist (`GiveFromISR`), und der Task reagiert darauf (`Take`).
+> Zusätzlich kommen hier **Software-Entprellung** und das **`__weak`-Callback-Konzept** als neue Themen hinzu.
+> Es gibt keinen »Aus«-Zustand – das Lauflicht läuft immer.
+
 ---
 
 ## Teil 1 – Theorie: Das `__weak`-Callback-Konzept
@@ -90,10 +100,9 @@ Beantwortet in der [Bearbeitung](Bearbeitung_05.md) folgende Fragen:
 Übernehmt das **Lauflicht aus Aufgabe 02** (mindestens 3 GPIO-Pins, z. B. DBG1, DBG2, DBG3) in `aufgabe_05.c`.
 Der Lauflicht-Task läuft initial mit einer Periode von **250 ms**.
 
-### Callback-Gerüst in `aufgabe_05.c` anlegen
+### Callback-Gerüst in `aufgabe_05.c`
 
-Die Codevorlage `aufgabe_05.c` enthält zunächst nur die leere Funktion `aufgabe_05_init()`.
-Damit ihr die `__weak`-Callbacks des HAL-Treibers überschreiben könnt, müsst ihr die folgenden **Funktionsgerüste** in eure Datei `aufgabe_05.c` kopieren:
+Die Codevorlage `aufgabe_05.c` enthält neben der leeren `aufgabe_05_init()` bereits die beiden **Callback-Gerüste**, mit denen die `__weak`-Versionen des HAL-Treibers überschrieben werden:
 
 ```c
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
@@ -107,8 +116,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 }
 ```
 
-> ⚠️ **Wichtig:** Kopiert die obigen Funktionssignaturen exakt so in `aufgabe_05.c`.
-> Durch die gleichnamige, starke Definition werden die `__weak`-Versionen aus dem HAL-Treiber automatisch vom Linker ersetzt.
+> ⚠️ **Wichtig:** Durch die gleichnamige, starke Definition werden die `__weak`-Versionen aus dem HAL-Treiber automatisch vom Linker ersetzt.
 > Entscheidet selbst, welcher der beiden Callbacks für diese Aufgabe geeignet ist und begründet eure Wahl.
 
 ### Taster-Interrupt: Pin prüfen und Entprellen

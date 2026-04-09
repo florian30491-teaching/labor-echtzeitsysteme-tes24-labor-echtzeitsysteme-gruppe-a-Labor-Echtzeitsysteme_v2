@@ -100,6 +100,13 @@ In dieser Aufgabe wird ein **Lauflicht** über mindestens 3 GPIO-Pins (z. B. DBG
 Ein einzelner FreeRTOS-Task steuert das Lauflicht mit einer **variablen Taskperiode** und einem **externen Taster** zur Zustandssteuerung.
 Der gemeinsame Zugriff auf die Zustandsvariable zwischen ISR-Kontext (Callback) und Task-Kontext wird durch eine **Binary Semaphore** geschützt.
 
+> ### ℹ️ Abgrenzung zu Aufgabe 05
+>
+> In dieser Aufgabe wird die Binary Semaphore als **Ressourcenschutz** (Mutex-Muster) eingesetzt:
+> Sowohl die ISR als auch der Task greifen mit `Take`/`Give` auf die gemeinsame Zustandsvariable zu.
+>
+> In **Aufgabe 05** wird dieselbe Semaphore-Art als **Signalisierungsmechanismus** (*Deferred Interrupt Processing*) verwendet – dort signalisiert die ISR dem Task nur, dass ein Ereignis eingetreten ist.
+
 ### Task-Anforderungen
 
 - Der Task hat eine **höhere Priorität als der IDLE-Task**
@@ -148,6 +155,8 @@ In dieser Aufgabe wird dazu eine **Binary Semaphore** verwendet:
 Die Projektvorlage ist so konfiguriert, dass ein **externer Interrupt** ausgelöst wird, sobald der Taster betätigt wird.
 Beim STM32H5 unterscheidet der HAL zwischen steigender und fallender Flanke – es existieren zwei separate `__weak`-Callbacks:
 
+> 📖 **Hintergrund:** Das `__weak`-Callback-Konzept wird in [Aufgabe 05](../Aufgabe_05/Aufgabe_05.md) ausführlich erklärt.
+
 ```c
 /* Fallende Flanke – wird beim Drücken des Tasters aufgerufen */
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin) { /* ... */ }
@@ -162,7 +171,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)  { /* ... */ }
 ### Ziel der Aufgabe
 
 1. Theoretische Erarbeitung der verschiedenen **Semaphore-Typen** in FreeRTOS (Binary Semaphore, Counting Semaphore, Mutex) sowie deren Unterschiede und Einsatzgebiete
-2. Theoretische Betrachtung der Zustandsmaschine, des Interrupt-Mechanismus (`__weak` Callback-Konzept) und des **Semaphore-Musters** zum Schutz gemeinsamer Ressourcen
+2. Theoretische Betrachtung der Zustandsmaschine und des **Semaphore-Musters** zum Schutz gemeinsamer Ressourcen (das `__weak`-Callback-Konzept wird in [Aufgabe 05](../Aufgabe_05/Aufgabe_05.md) vertieft)
 3. Praktische Implementierung des Lauflichts, der Zustandsmaschine, des Taster-Callbacks **sowie des Semaphore-Schutzes** auf dem STM32 Nucleo-H563ZI
 4. Messtechnische Untersuchung über die GPIO-Pins sowie den **Trace-Debugger (WinIDEA / iC5700 BlueBox)**
 
