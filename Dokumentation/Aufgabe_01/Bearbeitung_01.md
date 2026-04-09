@@ -6,7 +6,6 @@
 |---|---|
 | **Gruppe** | |
 | **Datum** | |
-| **Branch** | `feature/aufgabe01` |
 
 ---
 
