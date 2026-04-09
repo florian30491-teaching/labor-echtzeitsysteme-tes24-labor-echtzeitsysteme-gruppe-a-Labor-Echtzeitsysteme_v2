@@ -142,9 +142,15 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 # immer nach build/output/ kopiert.  Der Debugger muss nur auf diesen einen
 # Pfad zeigen:
 #   build/output/Labor-Echtzeitsyteme.elf
+#
+# POST_BUILD laeuft genau dann, wenn das Target tatsaechlich (neu) gelinkt
+# wurde.  Aendert sich kein Quellcode, wird nicht gelinkt und die Kopie
+# entfaellt – das ist das gewuenschte Verhalten.
+# Im Gegensatz zum frueheren OUTPUT-basierten Ansatz funktioniert dies
+# zuverlaessig auch beim Wechsel zwischen Presets, da kein gemeinsames
+# Output-Verzeichnis als Ninja-Abhaengigkeit dient.
 # ---------------------------------------------------------------------------
 set(OUTPUT_DIR "${CMAKE_SOURCE_DIR}/build/output")
-file(MAKE_DIRECTORY ${OUTPUT_DIR})
 
 # Info-Datei: zeigt welche Aufgabe aktuell im Output-Verzeichnis liegt.
 # Das Skript wird nur ausgefuehrt wenn tatsaechlich neu gebaut wurde,
@@ -160,15 +166,12 @@ file(WRITE "${GENERATE_BUILD_INFO_SCRIPT}"
     ")\n"
 )
 
-# Kopiere ELF + MAP nach ${OUTPUT_DIR} -- nur wenn sich die Quelldateien
-# tatsaechlich geaendert haben.  OUTPUT-basierte Abhaengigkeit statt
-# POST_BUILD, damit Ninja die Kopie ueberspringt wenn nichts neu gebaut wurde.
+# Kopiere ELF + MAP nach ${OUTPUT_DIR} nach jedem erfolgreichen Link-Vorgang.
 add_custom_command(
-    OUTPUT "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
-           "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
-           "${OUTPUT_DIR}/BUILD_INFO.txt"
-    DEPENDS ${CMAKE_PROJECT_NAME}
+    TARGET ${CMAKE_PROJECT_NAME}
+    POST_BUILD
     COMMENT ">>> Kopiere ELF + MAP nach ${OUTPUT_DIR}"
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${OUTPUT_DIR}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "$<TARGET_FILE:${CMAKE_PROJECT_NAME}>"
         "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
@@ -179,9 +182,4 @@ add_custom_command(
     VERBATIM
 )
 
-add_custom_target(copy_build_output ALL
-    DEPENDS "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.elf"
-            "${OUTPUT_DIR}/${CMAKE_PROJECT_NAME}.map"
-            "${OUTPUT_DIR}/BUILD_INFO.txt"
-)
 
