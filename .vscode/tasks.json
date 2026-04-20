@@ -1,0 +1,77 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Aufgabe 0",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-0-Debug ; cmake --build build/Aufgabe-0-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 1",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-1-Debug ; cmake --build build/Aufgabe-1-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 2",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-2-Debug ; cmake --build build/Aufgabe-2-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 3",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-3-Debug ; cmake --build build/Aufgabe-3-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 4",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-4-Debug ; cmake --build build/Aufgabe-4-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 5",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-5-Debug ; cmake --build build/Aufgabe-5-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 6",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-6-Debug ; cmake --build build/Aufgabe-6-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 7",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-7-Debug ; cmake --build build/Aufgabe-7-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        },
+        {
+            "label": "Build Aufgabe 8",
+            "type": "shell",
+            "command": "cmake --preset Aufgabe-8-Debug ; cmake --build build/Aufgabe-8-Debug",
+            "options": { "cwd": "${workspaceFolder}/Firmware" },
+            "group": "build",
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
